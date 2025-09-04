@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background: #121212;
+      color: #f9f9f9;
+    }
+
+    header {
+      background: linear-gradient(120deg, #6a11cb, #2575fc);
+      color: #fff;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      animation: fadeInDown 1s ease;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    header img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      margin-top: 20px;
+      transition: transform 0.3s;
+    }
+
+    header img:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #222;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .logo {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav ul li a:hover {
+      background: #2575fc;
+      color: #fff;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: #fff;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    /* Dark mode toggle */
+    .toggle-btn {
+      cursor: pointer;
+      background: #2575fc;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      margin-left: 15px;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #6a11cb;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #222;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        text-align: center;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #2575fc;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    body.dark h2 {
+      color: #6a11cb;
+    }
+
+    .about p {
+      text-align: justify;
+      margin-bottom: 15px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .about p.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s, background 0.3s, color 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: linear-gradient(120deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
+
+    body.dark .project-card {
+      background: #1e1e1e;
+      color: #fff;
+    }
+
+    .project-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .contact-links a {
+      text-decoration: none;
+      color: #fff;
+      background: #2575fc;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .contact-links a:hover {
+      background: #6a11cb;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: #fff;
+      margin-top: 40px;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Home -->
+  <header>
+    <h1>Hello, I'm Mayuri Sawant</h1>
+    <p>A Passionate Web Developer | Creating Modern & Responsive Websites</p>
+    <img src="user-icon.png" alt="Your Photo">
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo"><b>MyPortfolio</b></div>
+    <ul>
+      <li><b><a href="#about">About Me</a></b></li>
+      <li><b><a href="#projects">Projects</a></b></li>
+      <li><b><a href="#contact">Contact</a></b></li>
+    </ul>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <button class="toggle-btn">🌙 Dark</button>
+  </nav>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="about">
+      <p>Hi! I’m Mayuri Sawant, a web developer with a strong foundation in HTML, CSS, JavaScript, and modern frameworks. I love building interactive, user-friendly applications that solve real-world problems.</p>
+      <p><strong>Education:</strong> MCA Student at Finolex Academy of Management and Technology</p>
+      <p><strong>Experience:</strong> Built multiple projects in web development including portfolio sites, e-commerce systems, and PHP/MySQL applications.</p>
+      <p><strong>Skills:</strong> HTML5, CSS3, JavaScript, PHP, MySQL, ASP.NET, React, Git, Docker</p>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Online Book Store</h3>
+        <p>A simple ASP.NET & PHP project with user authentication, shopping cart, and admin panel.</p>
+      </div>
+      <div class="project-card">
+        <h3>Pet Care Web App</h3>
+        <p>A full-stack PHP/MySQL project with dynamic services, appointments, and email confirmation.</p>
+      </div>
+      <div class="project-card">
+        <h3>DevOps Pipeline</h3>
+        <p>CI/CD pipeline using Jenkins, Docker, and Ansible for automated deployments.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p style="text-align:center;">Feel free to connect with me on these platforms:</p>
+    <div class="contact-links">
+      <a href="mailto:your.email@example.com">Email</a>
+      <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 MayuriSawant. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Hamburger + Dark Mode -->
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('nav ul');
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const body = document.body;
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+    });
+
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('show');
+      });
+    });
+
+    // Dark Mode Toggle
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      toggleBtn.textContent = body.classList.contains('dark') ? "☀️ Light" : "🌙 Dark";
+    });
+
+    // Scroll reveal for about section
+    const aboutTexts = document.querySelectorAll('.about p');
+    window.addEventListener('scroll', () => {
+      const trigger = window.innerHeight * 0.8;
+      aboutTexts.forEach(p => {
+        const top = p.getBoundingClientRect().top;
+        if (top < trigger) {
+          p.classList.add('show');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
